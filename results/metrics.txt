@@ -1,0 +1,12 @@
+=== Simulation Metrics ===
+Duration:         507.9 s
+Samples:          5066 ctrl, 5066 loc
+EKF RMSE:         10.874 m
+EKF Max Error:    88.277 m
+EKF Mean Error:   7.977 m
+Avg Speed:        6.448 m/s
+Max Speed:        8.478 m/s
+Avg |jerk|:       0.183 m/s^3 (IMU-based)
+Max |jerk|:       2.249 m/s^3
+RMS jerk:         0.262 m/s^3
+P95 |jerk|:       0.514 m/s^3
