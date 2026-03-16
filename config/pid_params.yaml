@@ -1,0 +1,32 @@
+# PID Controller Parameters
+# ACC-style car-following + PID + jerk limiting
+
+longitudinal:
+  kp: 1.2
+  ki: 0.15
+  kd: 0.4
+
+  # Target speed when no lead vehicle is detected (m/s)
+  target_speed: 20.0
+
+  # Acceleration / deceleration constraints
+  max_accel: 2.5      # m/s^2
+  max_decel: 3.0      # m/s^2 (positive value, applied as negative braking)
+
+  # Jerk limiting
+  max_jerk: 1.5       # m/s^3
+
+  # Time-to-collision thresholds (seconds)
+  ttc_safe: 2.0
+  ttc_warning: 3.0
+  ttc_emergency: 1.0
+
+  # Safety limits
+  max_speed: 30.0     # m/s
+  min_speed: 0.0      # m/s
+
+  # Emergency braking settings (applied when TTC < ttc_emergency)
+  emergency_braking_accel: -3.0
+
+controller:
+  rate: 20.0           # Control loop rate (Hz)

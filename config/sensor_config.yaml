@@ -1,0 +1,72 @@
+# Sensor Fusion and Synthetic Sensor Configuration
+
+# Fusion mode selection:
+# 1 = GNSS only
+# 2 = GNSS + IMU
+# 3 = GNSS + Odometry
+# 4 = GNSS + IMU + Odometry
+fusion_mode: 4
+
+# Synthetic sensor settings
+sensors:
+  gnss:
+    frequency: 10.0           # Hz
+    noise_std: 0.5            # meters
+    drift_rate: 0.02          # meters per second (bias drift)
+    jump_probability: 0.01    # probability of a occasional jump per sample
+
+  imu:
+    frequency: 100.0          # Hz
+    accel_noise_std: 0.08     # m/s^2
+    gyro_noise_std: 0.01      # rad/s
+    accel_bias_std: 0.02      # m/s^2
+    gyro_bias_std: 0.005      # rad/s
+
+  lidar:
+    frequency: 20.0           # Hz
+    fov_deg: 360.0            # degrees
+    range_m: 100.0            # meters
+    points_per_scan: 100000
+
+  odometry:
+    frequency: 50.0           # Hz
+    velocity_noise_std: 0.05  # m/s
+
+# Trajectory generation for synthetic data
+trajectory:
+  type: "figure_eight"
+  duration: 60.0              # seconds
+
+# Lead vehicle simulation
+lead_vehicle:
+  enabled: true
+  distance_ahead: 30.0        # meters
+  speed_m_s: 15.0             # m/s (approx 54 km/h)
+
+# ROS2 topic mapping
+topics:
+  gnss: "/gnss"
+  imu: "/imu"
+  lidar: "/lidar"
+  odometry: "/odometry"
+  vehicle_pose_truth: "/vehicle_pose_truth"
+  vehicle_pose_est: "/vehicle_pose"
+  lead_vehicle_detected: "/lead_vehicle_detected"
+  lead_vehicle_distance: "/lead_vehicle_distance"
+  control_acceleration: "/control_acceleration"
+
+# Logging configuration
+logging:
+  enabled: true
+  output_dir: "results"
+  localization_log: "localization_log.csv"
+  control_log: "control_log.csv"
+
+# Plot generation settings (post-run)
+plotting:
+  enabled: true
+  output_dir: "results/plots"
+  generate_trajectory: true
+  generate_error: true
+  generate_speed_tracking: true
+  generate_jerk: true

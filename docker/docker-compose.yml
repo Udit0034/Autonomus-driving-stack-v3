@@ -1,0 +1,37 @@
+services:
+  autonomy_stack:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    
+    environment:
+      # ROS2 Configuration
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: "rmw_cyclonedds_cpp"
+      
+      # Simulation Mode (always synthetic for v3)
+      SIM_MODE: "synthetic"
+      
+      # Logging
+      PYTHONUNBUFFERED: "1"
+      ROS_LOG_DIR: "/tmp/ros_logs"
+      
+    volumes:
+      # Mount results directory (read-write for logging output)
+      - ../results:/root/autonomous_vehicle_stack_v3/results
+      
+      # NOTE: Config is already in image via COPY . . in Dockerfile
+      # If you want to override config at runtime, uncomment:
+      # - ../config:/root/autonomous_vehicle_stack_v3/config:ro
+    
+    # Use host network for ROS2 communication
+    network_mode: "host"
+    
+    stdin_open: true
+    tty: true
+    
+    # Restart policy
+    restart: "no"
+    
+    # Run the autonomy stack and generate metrics + plots
+    command: ["/run_and_plot.sh"]

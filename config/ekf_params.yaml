@@ -1,0 +1,53 @@
+# EKF Parameters – 6-state: [x, y, vx, vy, yaw, accel_bias]
+# Designed for synthetic sensor data (GNSS + IMU + Odometry fusion)
+
+ekf:
+  # Process noise covariance diagonal (Q)
+  # Values are σ² (variance) for each state.
+  # These values affect how quickly the filter trusts motion model vs measurements.
+  process_noise:
+    x: 0.08
+    y: 0.08
+    vx: 0.4
+    vy: 0.4
+    yaw: 0.01
+    accel_bias: 0.002
+
+  # Measurement noise covariance (R) for each sensor type.
+  # These are base values; adaptive scaling can adjust them in runtime.
+  measurement_noise:
+    gnss:
+      x: 0.5    # meters
+      y: 0.5    # meters
+    imu:
+      accel: 0.05   # m/s^2
+      gyro: 0.01    # rad/s
+    odometry:
+      velocity: 0.02  # m/s
+
+  # Fusion mode selection (default: full fusion)
+  # 1 = GNSS only
+  # 2 = GNSS + IMU
+  # 3 = GNSS + Odometry
+  # 4 = GNSS + IMU + Odometry
+  fusion_mode: 4
+
+  # Enable adaptive noise scaling to handle dynamic conditions
+  adaptive_noise: true
+
+  # Outlier rejection (Mahalanobis distance threshold)
+  outlier_rejection:
+    enabled: true
+    mahalanobis_threshold: 3.0
+
+  # Initial covariance diagonal values
+  initial_covariance:
+    x: 0.5
+    y: 0.5
+    vx: 0.5
+    vy: 0.5
+    yaw: 0.1
+    accel_bias: 0.3
+
+  # Prediction rate for EKF updates
+  prediction_rate: 50.0

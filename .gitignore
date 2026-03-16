@@ -1,0 +1,25 @@
+# ROS2 / Colcon
+build/
+install/
+log/
+
+# Results and logs
+results/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Binary extensions
+*.so
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+.cache/
